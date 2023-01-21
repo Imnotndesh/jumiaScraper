@@ -3,34 +3,20 @@ import requests
 import time
 import sys
 
+def anim():
+    animation = ["[■□□□□□□□□□]","[■■□□□□□□□□]", "[■■■□□□□□□□]", "[■■■■□□□□□□]", "[■■■■■□□□□□]", "[■■■■■■□□□□]", "[■■■■■■■□□□]", "[■■■■■■■■□□]", "[■■■■■■■■■□]", "[■■■■■■■■■■]"]
+    for i in range(len(animation)):
+        time.sleep(0.2)
+        sys.stdout.write("\r" + animation[i % len(animation)])
+        sys.stdout.flush()
+    print("\n")
 
-subSec = input("Enter desired category you want to get jumia deals......")
-sort = int(input("Choose sort method.... (1)Popularity {*default*} , (2)Newest arrivals , (3)Low to high , (4)High to low , (5) Product rating..."))
+subSec = input("Search for product...... ")
 
-if sort == 1:
-    sortType = ""
-elif sort == 2:
-    sortType = "&sort=newest"
-elif sort == 3:
-    sortType ="&sort=lowest-price"
-elif sort == 4:
-    sortType = "&sort=highest-price"
-elif sort == 5:
-    sortType ="&sort=rating"
-else:
-    print("No such method...")
-    print("Using default")
-    sortType = ""
+print("Jumia Deals.... ")
+anim()
 
-#animation sequence
-animation = ["[■□□□□□□□□□]","[■■□□□□□□□□]", "[■■■□□□□□□□]", "[■■■■□□□□□□]", "[■■■■■□□□□□]", "[■■■■■■□□□□]", "[■■■■■■■□□□]", "[■■■■■■■■□□]", "[■■■■■■■■■□]", "[■■■■■■■■■■]"]
-for i in range(len(animation)):
-    time.sleep(0.2)
-    sys.stdout.write("\r" + animation[i % len(animation)])
-    sys.stdout.flush()
-print("\n")
-
-url = (f"https://www.jumia.co.ke/catalog/?q={subSec}{sortType}")
+url = (f"https://www.jumia.co.ke/catalog/?q={subSec}&sort=lowest-price&shipped_from=country_local")
 site = requests.get(url)
 
 soup = BeautifulSoup(site.text,'html.parser')
@@ -46,6 +32,28 @@ for product in products:
     print (f"Url : https://www.jumia.co.ke{product['href']}")
     print("*************************************")
     print(" ")
+
+
+print("Jamboshop deals.... ")
+
+anim()
+
+url = (f"https://www.jamboshop.com/search?k={subSec}")
+
+site = requests.get(url)
+soup = BeautifulSoup(site.text,'html.parser')
+
+for products in soup.find_all(class_="productDetailsBox"):
+
+    itemName = products.find(class_='prd-title').text.strip()
+    itemPrice = products.find(class_='offer-price').text.strip()
+    itemLink = products.find(class_='title')
+    link = (f"https://www.jamboshop.com/{itemLink['href']}")
+    
+    print(f"Name: {itemName}")
+    print(f"Price: {itemPrice}")
+    print(f"link: {link}")
+    print("***********************")
 
 print("Jumia scraper by Brian.......more features soon..")
 print("Goodbye!")
