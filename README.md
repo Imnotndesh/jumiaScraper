@@ -1,7 +1,6 @@
-# HONEY (The Kenyan version)
+# Jumia Scraper
 
-This is a tool to fetch data from multiple kenyan marketplaces related to your search and finds you the best deals from each 
-marketplace.
+This is a tool to fetch data from Jumia Kenya that are related to your search and finds you the best deals and provide you to the links for each.
 
 The tool is fully written in python and conveys athered info in two ways:
     1. Through a JSON file ("In the works")
@@ -28,6 +27,6 @@ The tool is fully written in python and conveys athered info in two ways:
 
  The program will display the fetched data to you including links to the product or if you chose the data to be displayed via JSON the file will be saved in the same directory as where the scraper file is located.
 
- Hope you enjoy the program and more features coming soon as i add more sites.
+ Hope you enjoy the program and more features coming soon......
 
  Thanks.
