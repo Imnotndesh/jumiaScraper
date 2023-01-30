@@ -8,7 +8,7 @@ The tool is fully written in python and conveys athered info in two ways:
     (i am also workin on making it into an api)
 
 # HOW DO I GET IT WORKING
- 1. Cjeck if you have an Python Interprator Installed.
+ 1. Check if you have an Python Interprator Installed.
     Ensure you have an install of python in your system, if not you can fetch the install instructions from python.org
 
  2. Install Beautiful Soup.
