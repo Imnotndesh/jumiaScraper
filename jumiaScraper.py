@@ -1,8 +1,5 @@
 from bs4 import BeautifulSoup
-import requests
-import time
-import sys
-import json
+import requests,time,sys,json
 
 class animations:
     def itemAnim(self,subSec):
@@ -45,6 +42,7 @@ class Fetcher:
 
         with open(f"{subSec}.json",'w')as storeData:
             json.dump(gathered,storeData)
+        return gathered
 
         
 Iterate = 0
