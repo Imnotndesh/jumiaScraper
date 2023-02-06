@@ -13,20 +13,11 @@ class animations:
             sys.stdout.flush()
         print("\n")
 
-    def innAnim(self):
-        animation = ["[■□□□□□□□□□]","[■■□□□□□□□□]", "[■■■□□□□□□□]", "[■■■■□□□□□□]", "[■■■■■□□□□□]", "[■■■■■■□□□□]", "[■■■■■■■□□□]", "[■■■■■■■■□□]", "[■■■■■■■■■□]", "[■■■■■■■■■■]"]
-        for i in range(len(animation)):
-            time.sleep(0.2)
-            sys.stdout.write("\r" + animation[i % len(animation)])
-            sys.stdout.flush()
-        print("\n")
-
-z = animations()
+callAnim = animations()
 
 
 class Fetcher:
-    def jumiaFetcher(self,subSec,pageAmt):
-        z.innAnim()
+    def __init__(self,subSec,pageAmt):
         totpage = 0
         while totpage <pageAmt:
             totpage = totpage + 1
@@ -35,36 +26,41 @@ class Fetcher:
 
             soup = BeautifulSoup(site.text,'html.parser')
             products = soup.find_all(class_='core')
+            gathered = []
             for product in products:
                 itemName = product.find(class_='name')
                 itemPrice = product.find(class_='prc')
 
-                finalName = (f"Product : {itemName.get_text()}")
-                finalPrice = (f" Discounted price : {itemPrice.get_text()}")
-                finalLink = (f"Url : https://www.jumia.co.ke{product['href']}")
-                print(finalName)
-                print(finalPrice)
-                print(finalLink)
-                print("*************************************")
-                print(" ")
+                fillName = itemName.get_text()
+                fillPrice = itemPrice.get_text()
+                fillLink = (f"https://www.jumia.co.ke{product['href']}")
 
+                gatheredItems = {
+                    "name": fillName,
+                    "Price": fillPrice,
+                    "Link" : fillLink
+                }
+                
+                gathered.append(gatheredItems)
 
-            
-x=Fetcher()
-program = 0
+        with open(f"{subSec}.json",'w')as storeData:
+            json.dump(gathered,storeData)
 
-while program != 1:
+        
+Iterate = 0
+
+while Iterate != 1:
     print("|||| Welcome to the Jumia Kenya scraper ||||")
     subSec = input("Search for a product (Type 'quit' to exit the program)...... ")
 
     if subSec == "quit":
-        program = 1
+        Iterate = 1
 
 
     if subSec != "quit":
         pageAmt = int(input("Fetch how many pages? "))
-        z.itemAnim(subSec)
-        x.jumiaFetcher(subSec,pageAmt)
+        callAnim.itemAnim(subSec)
+        Fetcher(subSec,pageAmt)
 
 else:
     print("Quitting...")
